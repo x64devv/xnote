@@ -1,16 +1,9 @@
 # xnote
 
-A new Flutter project.
+A new Flutter project a Note taking app/ diary app for noting down anything really be it an idea, shopping list, code samples anything thanks to [flutter quil](https://pub.dev).
+
+UI design was inspired by [some dude](https://dibbble.com)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To get started using the app you can just download the source code and complile (for now its still in development so I have no build availabe due to constant modifications going on)
