@@ -47,10 +47,13 @@ class _BodyState extends State<Body> {
                 flex: 1,
                 child: IconButton(
                     onPressed: () async {
-                      if(widget.note.id == 0){
+                      if (widget.note.id == 0) {
                         widget.note.title = title;
                         widget.note.notePlainText = _controller.document.toPlainText();
-                        await DatabaseHelper().insertNote(widget.note).then((value){
+                        widget.note.notePath = "note_${title.toLowerCase().replaceAll(" ", "_")}.json";
+                        var json = jsonEncode(_controller.document.toDelta().toJson());
+                        await writeFile(json, widget.note.notePath!);
+                        await DatabaseHelper().insertNote(widget.note).then((value) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.transparent,
                               content: Container(
@@ -62,14 +65,13 @@ class _BodyState extends State<Body> {
                                         decoration: BoxDecoration(
                                             border: Border.all(color: Colors.white),
                                             borderRadius: BorderRadius.circular(16)),
-                                        child: Icon( value?
-                                          Icons.done_rounded: Icons.cancel_outlined,
+                                        child: Icon(
+                                          value ? Icons.done_rounded : Icons.cancel_outlined,
                                           color: Colors.white,
                                         )),
                                     Text("${widget.note.title} save ${value ? "Success" : "failed"}"),
                                   ])))));
                         });
-                        
                       }
                     },
                     icon: const Icon(
@@ -127,13 +129,13 @@ class _BodyState extends State<Body> {
         ),
         Row(
           children: [
-          //   IconButton(
-          //       onPressed: () {},
-          //       icon: Icon(
-          //         Icons.edit,
-          //         color: Colors.black.withOpacity(0.6),
-          //         size: 16,
-          //       )),
+            //   IconButton(
+            //       onPressed: () {},
+            //       icon: Icon(
+            //         Icons.edit,
+            //         color: Colors.black.withOpacity(0.6),
+            //         size: 16,
+            //       )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: RichText(
@@ -163,13 +165,13 @@ class _BodyState extends State<Body> {
     );
   }
 
-
   loadDocument(NoteModel note) async {
     if (note.id != 0) {
       final noteData = await readFile(note.notePath!);
       setState(() {
         var data = jsonDecode(noteData);
-        _controller = quil.QuillController(document: quil.Document.fromJson(data), selection: const TextSelection(baseOffset: 0, extentOffset: 1));
+        _controller = quil.QuillController(
+            document: quil.Document.fromJson(data), selection: const TextSelection(baseOffset: 0, extentOffset: 1));
       });
     }
   }
