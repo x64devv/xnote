@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:xnote/model/model_note.dart';
@@ -62,21 +63,24 @@ class DatabaseHelper {
             notePath: notes[index]['notePath'],
             dateCreated: notes[index]['dateCreated'],
             notePlainText: notes[index]['notePlainText']));
-  } 
-  
-  Future<List<NoteModel>> fetchNote(int id) async {
+  }
+
+  Future<NoteModel> fetchNote(int id) async {
     final db = await openDb();
     final List<Map<String, dynamic>> notes = await db.query("notes", where: "id = ?", whereArgs: [id.toString()]);
     db.close();
-    return List.generate(
-        notes.length,
-        (index) => NoteModel(
-            id: notes[index]['id'],
-            folder: notes[index]['folder'],
-            title: notes[index]['title'],
-            notePath: notes[index]['notePath'],
-            dateCreated: notes[index]['dateCreated'],
-            notePlainText: notes[index]['notePlainText']));
+    if (notes.isEmpty) {
+      return NoteModel.defaultNote();
+   
+    } else {
+      return NoteModel(
+          id: notes[0]['id'],
+          folder: notes[0]['folder'],
+          title: notes[0]['title'],
+          notePath: notes[0]['notePath'],
+          dateCreated: notes[0]['dateCreated'],
+          notePlainText: notes[0]['notePlainText']);
+    }
   }
 
   Future<bool> insertNote(NoteModel note) async {

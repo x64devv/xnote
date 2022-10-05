@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xnote/model/model_note.dart';
 
 import 'components/body.dart';
 
@@ -7,7 +8,7 @@ class NotesGridScreen extends StatelessWidget {
   static String routeName = "/folder";
   @override
   Widget build(BuildContext context) {
-    String folder = ModalRoute.of(context)!.settings.arguments as String;
+    var folder = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
       backgroundColor: Colors.white,

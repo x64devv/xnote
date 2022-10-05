@@ -41,7 +41,7 @@ class Body extends StatelessWidget {
               ),
               FutureBuilder(
                 future: DatabaseHelper().fetchFolderNotes(folder),
-                initialData: <NoteModel>[],
+                initialData: const <NoteModel>[],
                 builder: (context, AsyncSnapshot<List<NoteModel>> snapshot) {
                 if (snapshot.hasData) {
                   return Container(

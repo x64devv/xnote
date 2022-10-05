@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:xnote/model/model_note.dart';
 
 import 'components/body.dart';
 
 class NoteEditScreen extends StatefulWidget {
-  NoteEditScreen({Key? key}) : super(key: key);
+  NoteEditScreen({Key? key, required this.note}) : super(key: key);
   static String routeName = "/note_edit";
+  final NoteModel note;
 
   @override
   State<NoteEditScreen> createState() => _NoteEditScreenState();
@@ -16,7 +18,6 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
   Color favoriteColor = Colors.yellowAccent;
 
   bool isFavorite = false;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Body(),
+      body: Body(note: widget.note),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:xnote/screens/notes_grid_screen/notes_grid_screen.dart';
+import 'package:xnote/model/model_note.dart';
+import 'package:xnote/screens/note_edit/note_edit_screen.dart';
 
 class FolderCard extends StatelessWidget {
   const FolderCard({
@@ -35,7 +36,7 @@ class FolderCard extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, NotesGridScreen.routeName);
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> NoteEditScreen(note: NoteModel.defaultNote())));
                     },
                     child: const Icon(
                       Icons.chevron_right_outlined,

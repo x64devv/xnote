@@ -12,6 +12,5 @@ final Map<String, WidgetBuilder> routes = {
   LoginScreen.routeName: (context) => LoginScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   NotesGridScreen.routeName: (context) => NotesGridScreen(),
-  NoteEditScreen.routeName: (context) => NoteEditScreen(),
   
 };
