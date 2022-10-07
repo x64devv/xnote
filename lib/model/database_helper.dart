@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:xnote/model/model_note.dart';
@@ -13,7 +12,7 @@ class DatabaseHelper {
     final database = openDatabase(join(await getDatabasesPath(), 'xnote.db'), onCreate: (db, version) async {
       await db.execute('CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, pin, TEXT)');
       await db.execute(
-          'CREATE TABLE notes (id INTEGER, folder TEXT, title TEXT, notePath TEXT, dateCreated TEXT, folder TEXT, notePlainText TEXT)');
+          'CREATE TABLE notes (id INTEGER, folder TEXT, title TEXT, notePath TEXT, dateCreated TEXT,  notePlainText TEXT)');
     }, version: 1);
 
     return database;

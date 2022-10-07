@@ -57,7 +57,7 @@ class NoteModel {
 
   Map<String, dynamic> toMap() {
     return {
-      "folderId": folder,
+      "folder": folder,
       "title": title,
       "notePath": notePath,
       "dateCreated": dateCreated,

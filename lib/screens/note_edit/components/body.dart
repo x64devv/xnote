@@ -1,15 +1,10 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quil;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:path/path.dart';
 import 'package:xnote/model/database_helper.dart';
 import 'package:xnote/model/file_handler.dart';
-
-import '../../../componets/loading_screeen.dart';
 import '../../../model/model_note.dart';
 
 class Body extends StatefulWidget {
@@ -57,6 +52,7 @@ class _BodyState extends State<Body> {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.transparent,
                               content: Container(
+                                height: 60,
                                   decoration:
                                       BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(16)),
                                   child: Center(
@@ -88,25 +84,22 @@ class _BodyState extends State<Body> {
                           builder: (context) => AlertDialog(
                                 title: Text("Note Folder",
                                     style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold)),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-                                      child: TextFormField(
-                                        initialValue: widget.note.getFolder,
-                                        onChanged: (value) {
-                                          widget.note.folder = value;
-                                        },
-                                        decoration: InputDecoration(
-                                            hintText: "Note Folder",
-                                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                                            hintStyle: GoogleFonts.poppins(fontSize: 16),
-                                            border: InputBorder.none,
-                                            contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
-                                      ),
-                                    )
-                                  ],
+                                content: Container(
+                                  width: double.maxFinite,
+                                  height: 70,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+                                  child: TextFormField(
+                                    initialValue: widget.note.getFolder,
+                                    onChanged: (value) {
+                                      widget.note.folder = value;
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: "Note Folder",
+                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        hintStyle: GoogleFonts.poppins(fontSize: 16),
+                                        border: InputBorder.none,
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
+                                  ),
                                 ),
                                 actions: [
                                   TextButton(
