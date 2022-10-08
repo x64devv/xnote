@@ -10,9 +10,9 @@ class DatabaseHelper {
     WidgetsFlutterBinding.ensureInitialized();
 
     final database = openDatabase(join(await getDatabasesPath(), 'xnote.db'), onCreate: (db, version) async {
-      await db.execute('CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, pin, TEXT)');
+      await db.execute('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, pin, TEXT)');
       await db.execute(
-          'CREATE TABLE notes (id INTEGER, folder TEXT, title TEXT, notePath TEXT, dateCreated TEXT,  notePlainText TEXT)');
+          'CREATE TABLE notes (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, folder TEXT, title TEXT, notePath TEXT, dateCreated TEXT,  notePlainText TEXT)');
     }, version: 1);
 
     return database;
@@ -70,7 +70,6 @@ class DatabaseHelper {
     db.close();
     if (notes.isEmpty) {
       return NoteModel.defaultNote();
-   
     } else {
       return NoteModel(
           id: notes[0]['id'],
@@ -86,6 +85,7 @@ class DatabaseHelper {
     final db = await openDb();
     final int rowId = await db.insert("notes", note.toMap());
     db.close();
+    debugPrint("***note added***\n\n\trowID: $rowId");
     return rowId > 0;
   }
 

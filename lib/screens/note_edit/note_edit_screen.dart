@@ -31,6 +31,9 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
           ),
           onPressed: () {
             Navigator.pop(context);
+            setState(() {
+              
+            });
           },
         ),
         backgroundColor: Colors.white,

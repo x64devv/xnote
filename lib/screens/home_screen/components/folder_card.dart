@@ -34,15 +34,11 @@ class FolderCard extends StatelessWidget {
                   name.toLowerCase(),
                   style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.6), fontSize: 16),
                 ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> NoteEditScreen(note: NoteModel.defaultNote())));
-                    },
-                    child: const Icon(
-                      Icons.chevron_right_outlined,
-                      size: 20,
-                      color: Colors.white,
-                    )),
+                const Icon(
+                  Icons.chevron_right_outlined,
+                  size: 20,
+                  color: Colors.white,
+                ),
               ],
             ),
             Expanded(
