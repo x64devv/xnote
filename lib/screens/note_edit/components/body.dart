@@ -167,7 +167,7 @@ class _BodyState extends State<Body> {
         //   child: QuillEditor.basic(controller: _controller, readOnly: false),
         // ))
 
-        Flexible(
+        Expanded(
           child: TextFormField(
             initialValue: widget.note.notePlainText,
             onChanged: (value) {
