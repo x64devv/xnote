@@ -45,6 +45,13 @@ class _BodyState extends State<Body> {
             IconButton(
                 onPressed: () async {
                   if (widget.note.id == 0) {
+                    if(widget.note.title!.isEmpty && widget.note.notePlainText!.isEmpty){
+                        //check if title and plain text fiels are empty
+
+                        //Only  save if either has a value
+
+                        //Remember to modify the toast slash snackbar to give more information
+                    }
                     await DatabaseHelper().insertNote(widget.note).then((value) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.transparent,

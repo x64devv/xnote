@@ -38,7 +38,7 @@ class _NotesGridScreenState extends State<NotesGridScreen> {
               ),
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => NoteEditScreen(note: NoteModel.defaultNote()))).then((value){setState(() {
+                    context, MaterialPageRoute(builder: (context) => NoteEditScreen(note: NoteModel.defaultNote(folder: folder)))).then((value){setState(() {
                       
                     });});
               }),

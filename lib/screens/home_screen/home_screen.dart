@@ -17,46 +17,54 @@ class HomeScreen extends StatelessWidget {
         await showDialog(
             context: context,
             builder: (context) {
-              return Container(
-                height: 150,
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text(
-                          "You are about to exit the app. Are you sure you want to exit the app?",
-                          style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
+              return AlertDialog(
+                title: Text("Warning", style: GoogleFonts.poppins(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),
+                content: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Text(
+                            "You are about to exit the app. Are you sure you want to exit the app?",
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, color: Colors.black),
+                          ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                exit = true;
-                                if (Platform.isAndroid) {
-                                  SystemNavigator.pop();
-                                }
-                              },
-                              child: Text(
-                                "Yes",
-                                style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                exit = false;
-                                if (Platform.isAndroid) {
-                                  SystemNavigator.pop();
-                                }
-                              },
-                              child: Text(
-                                "No",
-                                style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
-                              )),
-                        ],
-                      )
-                    ]),
+                        Row(
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  exit = true;
+                                  if (Platform.isAndroid) {
+                                    SystemNavigator.pop();
+                                  }
+                                },
+                                child: Text(
+                                  "Yes",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16, color: Colors.black),
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  exit = false;
+                                  if (Platform.isAndroid) {
+                                    SystemNavigator.pop();
+                                  }
+                                },
+                                child: Text(
+                                  "No",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16, color: Colors.black),
+                                )),
+                          ],
+                        )
+                      ]),
+                ),
               );
             });
 

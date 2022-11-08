@@ -19,7 +19,7 @@ class FolderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: 8),
-      height: size.height * 0.3,
+      height: size.height * 0.15,//So I need to find a more multipixel density appropriate method to determine the height of the card
       width: size.width * 0.9,
       decoration: BoxDecoration(color: const Color.fromARGB(255, 18, 18, 18), borderRadius: BorderRadius.circular(16)),
       child: Padding(

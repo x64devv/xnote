@@ -65,10 +65,10 @@ class NoteModel {
     };
   }
 
-  static NoteModel defaultNote() {
+static NoteModel defaultNote({String folder="unassigned"}) {
     return NoteModel(
         id: 0,
-        folder: "unassigned",
+        folder: folder,
         dateCreated: DateFormat.yMMMMd().format(DateTime.now()),
         title: "",
         notePath: "",
