@@ -39,37 +39,52 @@ class _BodyState extends State<Body> {
                     contentPadding: const EdgeInsets.all(8),
                     border: InputBorder.none,
                     hintStyle: GoogleFonts.poppins(
-                        color: Colors.black.withOpacity(0.6), fontSize: 22, fontWeight: FontWeight.w800)),
+                        color: Colors.black.withOpacity(0.6),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800)),
               ),
             ),
             IconButton(
                 onPressed: () async {
                   if (widget.note.id == 0) {
-                    if(widget.note.title!.isEmpty && widget.note.notePlainText!.isEmpty){
-                        //check if title and plain text fiels are empty
-
-                        //Only  save if either has a value
-
-                        //Remember to modify the toast slash snackbar to give more information
+                    if (widget.note.title!.isEmpty &&
+                        widget.note.notePlainText!.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.transparent,
+                          content: MyToast(
+                            widget: widget,
+                            value: false,
+                            message: "Title and Note content can't both be empty!",
+                          )));
+                      return;
                     }
-                    await DatabaseHelper().insertNote(widget.note).then((value) {
+                    await DatabaseHelper()
+                        .insertNote(widget.note)
+                        .then((value) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.transparent,
                           content: MyToast(
                             widget: widget,
                             value: value,
-                            message: "save",
+                            message: value
+                                ? "Note saved successfully!"
+                                : "Note could not be saved. Please try again!",
                           )));
                     });
                   } else {
-                    debugPrint("id : ${widget.note.id} rest of data: ${widget.note.toMap()}");
-                    await DatabaseHelper().updateNote(widget.note).then((value) {
+                    debugPrint(
+                        "id : ${widget.note.id} rest of data: ${widget.note.toMap()}");
+                    await DatabaseHelper()
+                        .updateNote(widget.note)
+                        .then((value) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.transparent,
                           content: MyToast(
                             widget: widget,
                             value: value,
-                            message: "save",
+                            message: value
+                                ? "Note update success!"
+                                : "Note update failed!",
                           )));
                     });
                   }
@@ -85,12 +100,14 @@ class _BodyState extends State<Body> {
                       context: context,
                       builder: (context) => AlertDialog(
                             title: Text("Note Folder",
-                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold)),
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
                             content: Container(
                               width: double.maxFinite,
                               height: 60,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.black)),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: Colors.black)),
                               child: TextFormField(
                                 initialValue: widget.note.getFolder,
                                 onChanged: (value) {
@@ -98,10 +115,13 @@ class _BodyState extends State<Body> {
                                 },
                                 decoration: InputDecoration(
                                     hintText: "Note Folder",
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    hintStyle: GoogleFonts.poppins(fontSize: 16),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintStyle:
+                                        GoogleFonts.poppins(fontSize: 16),
                                     border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4)),
                               ),
                             ),
                             actions: [
@@ -127,9 +147,12 @@ class _BodyState extends State<Body> {
                 if (widget.note.id == 0) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Colors.transparent,
-                      content: MyToast(widget: widget, value: false, message: "delete")));
+                      content: MyToast(
+                          widget: widget, value: false, message: "delete")));
                 } else {
-                  await DatabaseHelper().deleteNote(widget.note.id!).then((value) {
+                  await DatabaseHelper()
+                      .deleteNote(widget.note.id!)
+                      .then((value) {
                     Navigator.pop(context);
                   });
                 }
@@ -153,12 +176,16 @@ class _BodyState extends State<Body> {
                 text: TextSpan(
                     text: "${widget.note.getFolder} ~ ",
                     style: GoogleFonts.poppins(
-                        color: Colors.black.withOpacity(0.4), fontSize: 12, fontWeight: FontWeight.w800),
+                        color: Colors.black.withOpacity(0.4),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800),
                     children: [
                       TextSpan(
                           text: " ${widget.note.dateCreated}",
                           style: GoogleFonts.poppins(
-                              color: Colors.black.withOpacity(0.4), fontWeight: FontWeight.w800, fontSize: 12)),
+                              color: Colors.black.withOpacity(0.4),
+                              fontWeight: FontWeight.w800,
+                              fontSize: 12)),
                     ]),
               ),
             ),
@@ -186,7 +213,8 @@ class _BodyState extends State<Body> {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left: 8, right: 8),
               hintText: "Type here ...",
-              hintStyle: GoogleFonts.poppins(fontSize: 16, color: Colors.black.withOpacity(0.6)),
+              hintStyle: GoogleFonts.poppins(
+                  fontSize: 16, color: Colors.black.withOpacity(0.6)),
               border: InputBorder.none,
             ),
           ),
@@ -227,18 +255,20 @@ class MyToast extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.all(4),
         height: 48,
-        decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(32)),
+        decoration: BoxDecoration(
+            color: Colors.black, borderRadius: BorderRadius.circular(32)),
         child: Center(
             child: Row(children: [
           Container(
               margin: const EdgeInsets.all(8),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.white), borderRadius: BorderRadius.circular(16)),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(16)),
               child: Icon(
                 value ? Icons.done_rounded : Icons.cancel_rounded,
                 color: Colors.white,
               )),
-          Text(" ${widget.note.title} $message ${value ? "Success" : "failed"}".toLowerCase()),
+          Text(message),
         ])));
   }
 }
