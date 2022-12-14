@@ -1,9 +1,31 @@
 # xnote
+This is a simple note taking application that allows you to take your note and organize and group similar note together with also the bonus to keep them behind a pin incase they have something sensitive.
 
-A new Flutter project a Note taking app/ diary app for noting down anything really be it an idea, shopping list, code samples anything thanks to [flutter quil](https://pub.dev).
+## Screenshots
 
-UI design was inspired by [some dude](https://dibbble.com)
+### Intro and registration
 
-## Getting Started
+<div> 
+<img src="intro.png" alt="intro" width=200/>
+<img src="login.png" alt="login" width=200/>
+</div>
 
-To get started using the app you can just download the source code and complile (for now its still in development so I have no build availabe due to constant modifications going on)
+### home
+
+<div> 
+<img src="home.png" alt="home" width=200/>
+</div>
+
+### folder screens
+
+<div> 
+<img src="note_folder.png" alt="folder" width=200/>
+<img src="notefolder.png" alt="folder" width=200/>
+<img src="notefolder_.png" alt="folder" width=200/>
+</div>
+
+### Note edit
+
+<div> 
+<img src="new_note.png" alt="new_note" width=200/>
+</div>

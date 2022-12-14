@@ -5,10 +5,17 @@ import 'package:xnote/model/database_helper.dart';
 import 'package:xnote/screens/note_edit/note_edit_screen.dart';
 import 'package:xnote/screens/notes_grid_screen/notes_grid_screen.dart';
 
+import '../../../model/model_note.dart';
 import 'folder_card.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   List<Map<String, String>> folders = [];
 
   @override
@@ -59,7 +66,9 @@ class Body extends StatelessWidget {
                                         context,
                                         NotesGridScreen.routeName,
                                         arguments: snapshot.data![index]["folder"]!,
-                                      );
+                                      ).then((value){setState(() {
+                                        
+                                      });});
                                     },
                                     child: FolderCard(
                                         size: size,
@@ -81,7 +90,13 @@ class Body extends StatelessWidget {
               right: size.width * 0.0025,
               child: XButton(
                 onTap: () {
-                  Navigator.pushNamed(context, NoteEditScreen.routeName, arguments: <String, int>{"id": 0});
+                  Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NoteEditScreen(note: NoteModel.defaultNote())))
+                      .then((value) {
+                        setState(() {
+                          
+                        });
+                      });
                 },
                 isIcon: true,
                 icon: Icons.add,

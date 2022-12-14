@@ -4,7 +4,7 @@ import 'package:xnote/screens/note_edit/note_edit_screen.dart';
 
 import '../../../model/model_note.dart';
 
-class NoteCard extends StatelessWidget {
+class NoteCard extends StatefulWidget {
   const NoteCard({
     Key? key,
     required this.note,
@@ -17,34 +17,32 @@ class NoteCard extends StatelessWidget {
   final NoteModel note;
 
   @override
+  State<NoteCard> createState() => _NoteCardState();
+}
+
+class _NoteCardState extends State<NoteCard> {
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, NoteEditScreen.routeName, arguments: note.getId == 0? 0 : note.getId);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        width: size.width * 0.45,
-        height: index.isEven ? size.height * 0.3 : size.height * 0.15,
-        decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(16)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              note.getTitle,
-              style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-            const Expanded(
-              child: SizedBox(height: 8),
-            ),
-            Text(
-              note.getNotePlainText,
-              style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w200),
-              overflow: TextOverflow.ellipsis,
-              maxLines: index.isEven ? 8 : 3,
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      width: widget.size.width * 0.45,
+      height: widget.index.isEven ? widget.size.height * 0.3 : widget.size.height * 0.15,
+      decoration: BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.note.getTitle,
+            style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.note.getNotePlainText,
+            style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w200),
+            overflow: TextOverflow.ellipsis,
+            maxLines: widget.index.isEven ? 8 : 3,
+          ),
+        ],
       ),
     );
   }

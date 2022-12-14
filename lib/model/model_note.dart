@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class NoteModel {
   int? id;
   String? folder;
@@ -32,7 +34,7 @@ class NoteModel {
     return notePlainText;
   }
 
-  set setFolderId(String folder) {
+  set setFolder(String folder) {
     this.folder = folder;
   }
 
@@ -55,11 +57,21 @@ class NoteModel {
 
   Map<String, dynamic> toMap() {
     return {
-      "folderId": folder,
+      "folder": folder,
       "title": title,
       "notePath": notePath,
       "dateCreated": dateCreated,
       "notePlainText": notePlainText,
     };
+  }
+
+static NoteModel defaultNote({String folder="unassigned"}) {
+    return NoteModel(
+        id: 0,
+        folder: folder,
+        dateCreated: DateFormat.yMMMMd().format(DateTime.now()),
+        title: "",
+        notePath: "",
+        notePlainText: "");
   }
 }

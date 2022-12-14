@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xnote/routes.dart';
 import 'package:xnote/screens/authentication_screen/authentication_screen.dart';
-import 'package:xnote/screens/login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());

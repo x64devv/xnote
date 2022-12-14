@@ -51,7 +51,7 @@ class _LogInState extends State<LogIn> {
     [
       " ",
       "0",
-      "C",
+      "DEL",
     ],
   ];
   @override
@@ -150,14 +150,18 @@ class _LogInState extends State<LogIn> {
                                               setState(() {
                                                 pin.write(values[indexMain][index]);
                                               });
-                                            } else if (values[indexMain][index] == "C" && pin.length > 0) {
+                                            } else if (values[indexMain][index] == "DEL" && pin.length > 0) {
                                               setState(() {
                                                 pin = StringBuffer(pin.toString().substring(0, pin.length - 1));
                                               });
                                             }
 
                                             if (pin.length == 4 && pin.toString() == data[0].getPin) {
-                                              Navigator.pushNamed(context, HomeScreen.routeName);
+                                              Navigator.pushNamed(context, HomeScreen.routeName).then((value) {
+                                                setState(() {
+                                                  
+                                                });
+                                              });
                                             }
                                           },
                                           text: values[indexMain][index]),

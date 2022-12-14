@@ -10,9 +10,9 @@ class DatabaseHelper {
     WidgetsFlutterBinding.ensureInitialized();
 
     final database = openDatabase(join(await getDatabasesPath(), 'xnote.db'), onCreate: (db, version) async {
-      await db.execute('CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, pin, TEXT)');
+      await db.execute('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, pin, TEXT)');
       await db.execute(
-          'CREATE TABLE notes (id INTEGER, folder TEXT, title TEXT, notePath TEXT, dateCreated TEXT, folder TEXT, notePlainText TEXT)');
+          'CREATE TABLE notes (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, folder TEXT, title TEXT, notePath TEXT, dateCreated TEXT,  notePlainText TEXT)');
     }, version: 1);
 
     return database;
@@ -62,27 +62,30 @@ class DatabaseHelper {
             notePath: notes[index]['notePath'],
             dateCreated: notes[index]['dateCreated'],
             notePlainText: notes[index]['notePlainText']));
-  } 
-  
-  Future<List<NoteModel>> fetchNote(int id) async {
+  }
+
+  Future<NoteModel> fetchNote(int id) async {
     final db = await openDb();
     final List<Map<String, dynamic>> notes = await db.query("notes", where: "id = ?", whereArgs: [id.toString()]);
     db.close();
-    return List.generate(
-        notes.length,
-        (index) => NoteModel(
-            id: notes[index]['id'],
-            folder: notes[index]['folder'],
-            title: notes[index]['title'],
-            notePath: notes[index]['notePath'],
-            dateCreated: notes[index]['dateCreated'],
-            notePlainText: notes[index]['notePlainText']));
+    if (notes.isEmpty) {
+      return NoteModel.defaultNote();
+    } else {
+      return NoteModel(
+          id: notes[0]['id'],
+          folder: notes[0]['folder'],
+          title: notes[0]['title'],
+          notePath: notes[0]['notePath'],
+          dateCreated: notes[0]['dateCreated'],
+          notePlainText: notes[0]['notePlainText']);
+    }
   }
 
   Future<bool> insertNote(NoteModel note) async {
     final db = await openDb();
     final int rowId = await db.insert("notes", note.toMap());
     db.close();
+    debugPrint("***note added***\n\n\trowID: $rowId");
     return rowId > 0;
   }
 

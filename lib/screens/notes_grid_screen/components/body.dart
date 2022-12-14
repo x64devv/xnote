@@ -4,12 +4,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:xnote/model/database_helper.dart';
 
 import '../../../model/model_note.dart';
+import '../../note_edit/note_edit_screen.dart';
 import 'note_card.dart';
 import 'tag_pill.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   Body({Key? key, required this.folder}) : super(key: key);
   final String folder;
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   List<String> tags = [
     "filters",
   ];
@@ -22,7 +29,7 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                "personal notes",
+                "${widget.folder} notes",
                 style: GoogleFonts.poppins(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               SingleChildScrollView(
@@ -40,8 +47,8 @@ class Body extends StatelessWidget {
                 ),
               ),
               FutureBuilder(
-                future: DatabaseHelper().fetchFolderNotes(folder),
-                initialData: <NoteModel>[],
+                future: DatabaseHelper().fetchFolderNotes(widget.folder),
+                initialData: const <NoteModel>[],
                 builder: (context, AsyncSnapshot<List<NoteModel>> snapshot) {
                 if (snapshot.hasData) {
                   return Container(
@@ -50,15 +57,25 @@ class Body extends StatelessWidget {
                       height: size.height * 0.7725,
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(32)),
                       child: MasonryGridView.count(
-                          itemCount: 10,
+                          itemCount: snapshot.data!.length,
                           crossAxisCount: 2,
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
-                          itemBuilder: (context, index) => NoteCard(
-                                size: size,
-                                index: index,
-                                note: snapshot.data![index],
-                              )));
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => NoteEditScreen(note: snapshot.data![index]))).then((value) {
+                                        setState(() {});
+                                      });
+                                    },
+                            child: NoteCard(
+                                  size: size,
+                                  index: index,
+                                  note: snapshot.data![index],
+                                ),
+                          )));
                 } else
                   return Container();
               })
